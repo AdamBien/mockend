@@ -1,6 +1,7 @@
 package airhacks.mockend.crud.boundary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -46,24 +47,43 @@ public class CRUDResourceIT {
     @Test
     public void updateWithPut() throws IOException, InterruptedException {
         var input = """
-        {
-          "message":"hello frontend",
-          "sender":"mockend"
-        }
-        """;
+                {
+                  "message":"hello frontend",
+                  "sender":"mockend"
+                }
+                """;
         var id = String.valueOf(System.nanoTime());
 
-        var request = HttpRequest.newBuilder(uri.resolve(id)).PUT(BodyPublishers.ofString(input)).header("Content-type","application/json").build();
+        var request = HttpRequest.newBuilder(uri.resolve(id)).PUT(BodyPublishers.ofString(input))
+                .header("Content-type", "application/json").build();
         var response = client.send(request, BodyHandlers.ofString());
         var status = response.statusCode();
         var headers = response.headers();
         var location = headers.firstValue("Location").get();
         assertTrue(location.endsWith(id));
         assertEquals(201, status);
-        
+
         response = client.send(request, BodyHandlers.ofString());
         status = response.statusCode();
         headers = response.headers();
-        assertEquals(204,status);
+        assertEquals(204, status);
     }
+    
+    @Test
+    public void createWithPOST() throws IOException, InterruptedException {
+        var input = """
+                {
+                  "message":"hello frontend",
+                  "sender":"mockend"
+                }
+                """;
+        var request = HttpRequest.newBuilder(uri).POST(BodyPublishers.ofString(input))
+                .header("Content-type", "application/json").build();
+        var response = client.send(request, BodyHandlers.ofString());
+        var status = response.statusCode();
+        var headers = response.headers();
+        var location = headers.firstValue("Location").get();
+        assertNotNull(location);
+        assertEquals(201, status);
+    }    
 }
