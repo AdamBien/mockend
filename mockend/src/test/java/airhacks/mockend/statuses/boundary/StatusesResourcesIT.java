@@ -1,0 +1,38 @@
+package airhacks.mockend.statuses.boundary;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
+
+
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+
+public class StatusesResourcesIT {
+
+    
+    URI uri;
+
+    @BeforeEach
+    public void init() {
+        this.uri = URI.create("http://localhost:8080/statuses");
+        
+    }
+
+    @Test
+    public void get200() throws IOException, InterruptedException {
+        var request = HttpRequest.newBuilder(uri).GET().build();
+        var client = HttpClient.newHttpClient();
+        var status = client.send(request, BodyHandlers.ofString()).statusCode();
+        assertEquals(200,status);
+
+    }
+    
+}
