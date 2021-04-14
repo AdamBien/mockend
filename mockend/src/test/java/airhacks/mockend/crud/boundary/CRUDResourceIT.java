@@ -65,6 +65,5 @@ public class CRUDResourceIT {
         status = response.statusCode();
         headers = response.headers();
         assertEquals(204,status);
-
     }
 }
