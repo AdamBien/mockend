@@ -2,8 +2,10 @@ package airhacks.mockend.delay.boundary;
 
 import java.io.IOException;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
@@ -12,15 +14,13 @@ import javax.ws.rs.ext.Provider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Provider
-public class DelayProvider implements ContainerResponseFilter {
+public class DelayProvider implements ContainerRequestFilter {
     
-    @Inject
-    @ConfigProperty(name = "delay",defaultValue = "100")
     long delay;
 
     @Inject
-    @ConfigProperty(name = "slowdown-header-name",defaultValue = "slowdown-in-ms")
-    String delayHeaderName;
+    @ConfigProperty(name = "delay-header-name",defaultValue = "delay-in-ms")
+    Instance<String> delayHeaderName;
     
     
     public static long convert(String value) {
@@ -31,10 +31,12 @@ public class DelayProvider implements ContainerResponseFilter {
         }
     }
 
+
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        System.out.println("responseContext = " + requestContext.getHeaders());
-        String delayConfig = requestContext.getHeaderString(this.delayHeaderName);
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+        var headerName = this.delayHeaderName.get();
+        System.out.println("requestContext = " + requestContext.getHeaders());
+        String delayConfig = requestContext.getHeaderString(headerName);
         if (delayConfig != null) {
             this.delay = convert(delayConfig);
         }
@@ -45,8 +47,6 @@ public class DelayProvider implements ContainerResponseFilter {
                 throw new IllegalStateException(ex);
             }
         }
-        MultivaluedMap<String, Object> headers = responseContext.getHeaders();
-        headers.putSingle(this.delayHeaderName, delay);
     }
 }
 
