@@ -1,6 +1,7 @@
 package airhacks.mockend.crud.boundary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.URI;
@@ -24,17 +25,20 @@ public class CRUDResourceIT {
     }
     
     @Test
-    public void crud() throws IOException, InterruptedException {
+    public void createWithPut() throws IOException, InterruptedException {
         var input = """
         {
           "message":"hello frontend",
           "sender":"mockend"
         }
-                        """;
-        var request = HttpRequest.newBuilder(uri.resolve("42")).PUT(BodyPublishers.ofString(input)).header("Content-type","application/json").build();
+        """;
+        var id = String.valueOf(System.nanoTime());
+        var request = HttpRequest.newBuilder(uri.resolve(id)).PUT(BodyPublishers.ofString(input)).header("Content-type","application/json").build();
         var response = client.send(request, BodyHandlers.ofString());
         var status = response.statusCode();
-        assertEquals(201,status);     
-        
+        var headers = response.headers();
+        var location = headers.firstValue("Location").get();
+        assertTrue(location.endsWith(id));
+        assertEquals(201,status);
     }
 }

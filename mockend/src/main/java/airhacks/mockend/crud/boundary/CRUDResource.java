@@ -56,7 +56,7 @@ public class CRUDResource {
     @Path("{id}")
     public Response upsert(@PathParam("id") String id, JsonObject input) {
         var previous = this.store.put(id, input);
-        return previous == null ? Response.created(URI.create("/"+id)).build() : Response.noContent().build();
+        return previous == null ? Response.created(URI.create("/crud/"+id)).build() : Response.noContent().build();
 
     }
     
