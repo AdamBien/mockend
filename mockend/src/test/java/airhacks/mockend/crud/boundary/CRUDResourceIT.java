@@ -85,5 +85,18 @@ public class CRUDResourceIT {
         var location = headers.firstValue("Location").get();
         assertNotNull(location);
         assertEquals(201, status);
-    }    
+    }
+
+    
+    @Test
+    public void createWithPOSTAndFetchList() throws IOException, InterruptedException {
+        this.createWithPOST();
+        var request = HttpRequest.newBuilder(uri).GET().headers("Accept","application/json").build();
+        var response = client.send(request, BodyHandlers.ofString());
+        var status = response.statusCode();
+        assertEquals(200, status);
+        var body = response.body();
+        assertNotNull(body);
+        System.out.println(body);
+    }
 }
