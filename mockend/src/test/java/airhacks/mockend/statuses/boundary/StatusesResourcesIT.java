@@ -20,7 +20,6 @@ public class StatusesResourcesIT {
     public void init() {
         this.uri = URI.create("http://localhost:8080/statuses");
         this.client = HttpClient.newHttpClient();
-        
     }
 
     @Test
