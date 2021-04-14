@@ -47,7 +47,6 @@ public class DelayProvider implements ContainerResponseFilter {
         }
         MultivaluedMap<String, Object> headers = responseContext.getHeaders();
         headers.putSingle(this.delayHeaderName, delay);
-
     }
 }
 
