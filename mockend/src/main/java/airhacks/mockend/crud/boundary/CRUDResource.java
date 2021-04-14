@@ -50,7 +50,7 @@ public class CRUDResource {
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") String id) {
-        this.store.get(id);
+        this.store.remove(id);
     }
 
     @DELETE
