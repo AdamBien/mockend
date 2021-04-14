@@ -1,5 +1,6 @@
 package airhacks.mockend.crud.boundary;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("crud")
 @ApplicationScoped
@@ -52,8 +54,10 @@ public class CRUDResource {
 
     @PUT
     @Path("{id}")
-    public void upsert(@PathParam("id") String id, JsonObject input) {
-        this.store.put(id, input);
+    public Response upsert(@PathParam("id") String id, JsonObject input) {
+        var previous = this.store.put(id, input);
+        return previous == null ? Response.created(URI.create("/"+id)).build() : Response.noContent().build();
+
     }
     
     @POST
