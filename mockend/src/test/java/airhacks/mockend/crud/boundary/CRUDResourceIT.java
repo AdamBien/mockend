@@ -27,18 +27,44 @@ public class CRUDResourceIT {
     @Test
     public void createWithPut() throws IOException, InterruptedException {
         var input = """
+                {
+                  "message":"hello frontend",
+                  "sender":"mockend"
+                }
+                """;
+        var id = String.valueOf(System.nanoTime());
+        var request = HttpRequest.newBuilder(uri.resolve(id)).PUT(BodyPublishers.ofString(input))
+                .header("Content-type", "application/json").build();
+        var response = client.send(request, BodyHandlers.ofString());
+        var status = response.statusCode();
+        var headers = response.headers();
+        var location = headers.firstValue("Location").get();
+        assertTrue(location.endsWith(id));
+        assertEquals(201, status);
+    }
+    
+    @Test
+    public void updateWithPut() throws IOException, InterruptedException {
+        var input = """
         {
           "message":"hello frontend",
           "sender":"mockend"
         }
         """;
         var id = String.valueOf(System.nanoTime());
+
         var request = HttpRequest.newBuilder(uri.resolve(id)).PUT(BodyPublishers.ofString(input)).header("Content-type","application/json").build();
         var response = client.send(request, BodyHandlers.ofString());
         var status = response.statusCode();
         var headers = response.headers();
         var location = headers.firstValue("Location").get();
         assertTrue(location.endsWith(id));
-        assertEquals(201,status);
+        assertEquals(201, status);
+        
+        response = client.send(request, BodyHandlers.ofString());
+        status = response.statusCode();
+        headers = response.headers();
+        assertEquals(204,status);
+
     }
 }
