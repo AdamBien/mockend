@@ -61,9 +61,10 @@ public class CRUDResource {
     }
     
     @POST
-    public void insert(JsonObject input) {
+    public Response insert(JsonObject input) {
         var generatedId = "" + System.currentTimeMillis();
         this.store.put(generatedId, input);
+        return Response.created(URI.create("/crud/" + generatedId)).build();
     }
 
 }
