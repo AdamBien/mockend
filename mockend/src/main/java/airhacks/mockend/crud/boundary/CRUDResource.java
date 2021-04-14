@@ -52,6 +52,11 @@ public class CRUDResource {
         this.store.get(id);
     }
 
+    @DELETE
+    public void deleteAll() {
+        this.store.clear();
+    }
+
     @PUT
     @Path("{id}")
     public Response upsert(@PathParam("id") String id, JsonObject input) {

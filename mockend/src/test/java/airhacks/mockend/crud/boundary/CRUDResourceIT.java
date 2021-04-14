@@ -91,7 +91,7 @@ public class CRUDResourceIT {
     @Test
     public void createWithPOSTAndFetchList() throws IOException, InterruptedException {
         this.createWithPOST();
-        var request = HttpRequest.newBuilder(uri).GET().headers("Accept","application/json").build();
+        var request = HttpRequest.newBuilder(uri).GET().headers("Accept", "application/json").build();
         var response = client.send(request, BodyHandlers.ofString());
         var status = response.statusCode();
         assertEquals(200, status);
@@ -99,4 +99,25 @@ public class CRUDResourceIT {
         assertNotNull(body);
         System.out.println(body);
     }
+    
+    @Test
+    public void deleteEverything() throws IOException, InterruptedException {
+        this.createWithPOST();
+        var request = HttpRequest.newBuilder(uri).GET().headers("Accept", "application/json").build();
+        var response = client.send(request, BodyHandlers.ofString());
+        var status = response.statusCode();
+        assertEquals(200, status);
+        var body = response.body();
+        assertNotNull(body);
+
+        var deleteRequest = HttpRequest.newBuilder(uri).DELETE().build();
+        var deleteResponse = client.send(deleteRequest, BodyHandlers.ofString());
+        assertEquals(204, deleteResponse.statusCode());
+
+        response = client.send(request, BodyHandlers.ofString());
+        status = response.statusCode();
+        assertEquals(200, status);
+
+    }
+
 }
