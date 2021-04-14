@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.stream.JsonCollectors;
@@ -60,7 +61,7 @@ public class CRUDResource {
     @PUT
     @Path("{id}")
     public Response upsert(@PathParam("id") String id, JsonObject input) {
-        var previous = this.store.put(id, input);
+        var previous = this.store.put(id, addId(input,id));
         return previous == null ? Response.created(URI.create("/crud/"+id)).build() : Response.noContent().build();
 
     }
@@ -68,8 +69,14 @@ public class CRUDResource {
     @POST
     public Response insert(JsonObject input) {
         var generatedId = "" + System.currentTimeMillis();
-        this.store.put(generatedId, input);
+        this.store.put(generatedId, addId(input,generatedId));
         return Response.created(URI.create("/crud/" + generatedId)).build();
+    }
+
+    JsonObject addId(JsonObject input,String id) {
+        return Json.createObjectBuilder(input).
+                add("id", id).
+        build();
     }
 
 }
