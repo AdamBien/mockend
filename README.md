@@ -24,6 +24,7 @@ All requests can be delayed for the time defined in the header: `delay-in-ms`
 
 ### creation with generated id
 request: `curl -XPOST "http://localhost:8080/crud" -H  "Content-Type: application/json" -d "{\"message\":\"hello, mockend\"}"`
+
 response: 
 ```
 access-control-allow-credentials: false 
@@ -54,7 +55,7 @@ request:
 
 response:
 
-`HTTP/1.1 204 No Content``
+`HTTP/1.1 204 No Content`
 
 ### create an object with id
 
@@ -80,7 +81,25 @@ response:
 
 `HTTP/1.1 204 No Content`
 
+## echo
 
+request:
+
+`curl -X POST "http://localhost:8080/echo" -H"Content-Type: text/plain" -d "hello, mockend"`
+
+response:
+
+```
+HTTP/1.1 200 OK
+Content-Length: 19
+Content-Type: text/plain;charset=UTF-8
+
+echo:hello, mockend
+```
+
+request with a response delayed for 1000 ms:
+
+curl -i -X POST "http://localhost:8080/echo"  -H'delay-in-ms:1000' -H"Content-Type: text/plain" -d "hello, mockend"
 
 # build
 
