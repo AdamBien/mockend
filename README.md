@@ -2,7 +2,7 @@
 
 the "mock backend" for frontend Single Page Applications. 
 
-mockend was used to implement the "unidirectional dataflow" in the https://github.com/adambien/bce.design template.
+mockend was used to implement the ["unidirectional dataflow"](https://adambien.blog/roller/abien/entry/unidirectional_data_flow_example_with) and asynchronous data fetching in the https://github.com/adambien/bce.design template.
 
 # install
 
