@@ -124,3 +124,9 @@ Content-Length: 1
 # build
 
 `mvn package`
+
+# references
+
+The project uses source from: https://github.com/AdamBien/snail and https://github.com/AdamBien/statustest
+
+mockend was used to implement: https://github.com/AdamBien/bce.design
