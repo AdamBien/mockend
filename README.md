@@ -1,6 +1,8 @@
 # mockend
 
-the mock backend for frontend applications
+the "mock backend" for frontend Single Page Applications. 
+
+mockend was used to implement the "unidirectional dataflow" in the https://github.com/adambien/bce.design template.
 
 # install
 
@@ -127,6 +129,6 @@ Content-Length: 1
 
 # references
 
-The project uses source from: https://github.com/AdamBien/snail and https://github.com/AdamBien/statustest
+This repository contains code extracted from: https://github.com/AdamBien/snail and https://github.com/AdamBien/statustest
 
-mockend was used to implement: https://github.com/AdamBien/bce.design
+mockend was created to test: https://github.com/AdamBien/bce.design and also used at: https://airhacks.live workshops
