@@ -12,6 +12,8 @@ e.g. for the v0.0.1:
 
 # run
 
+Install Java 11+ first, then run:
+
 `java -jar target/mockend-runner.jar`
 
 # API
@@ -99,7 +101,25 @@ echo:hello, mockend
 
 request with a response delayed for 1000 ms:
 
-curl -i -X POST "http://localhost:8080/echo"  -H'delay-in-ms:1000' -H"Content-Type: text/plain" -d "hello, mockend"
+`curl -i -X POST "http://localhost:8080/echo"  -H'delay-in-ms:1000' -H"Content-Type: text/plain" -d "hello, mockend"`
+
+## status
+
+The `/statuses` API returns responses with status codes passed as `status` header and a `+` in the body, e.g.
+
+response:
+
+`curl -H"status: 500" http://localhost:8080/statuses`
+response:
+
+```
+HTTP/1.1 500 Internal Server Error
+Content-Length: 1
+
++
+```
+
+`POST`, `PUT`, `GET`, `DELETE`, `OPTIONS` requests are supported.
 
 # build
 
