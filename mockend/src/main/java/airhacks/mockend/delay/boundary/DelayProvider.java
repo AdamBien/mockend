@@ -19,6 +19,9 @@ public class DelayProvider implements ContainerRequestFilter {
     @ConfigProperty(name = "delay-header-name",defaultValue = "delay-in-ms")
     Instance<String> delayHeaderName;
     
+    @Inject
+    @ConfigProperty(name="delay-in-ms", defaultValue="0")
+    Instance<Long> delayInMs;
     
     public static long convert(String value) {
         try {
@@ -31,6 +34,7 @@ public class DelayProvider implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
+        this.delay = delayInMs.get();
         var headerName = this.delayHeaderName.get();
         System.out.println("requestContext = " + requestContext.getHeaders());
         String delayConfig = requestContext.getHeaderString(headerName);
