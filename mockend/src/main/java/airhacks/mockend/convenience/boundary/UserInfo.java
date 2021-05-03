@@ -33,7 +33,7 @@ public class UserInfo {
         LOG.info("use -Ddelay-in-ms=10 to set the delay from the CLI. Is going to be overriden by headers");
         if (this.delayInMs == 0)
             LOG.info("delay is not set or delay-in-ms=0");
-        LOG.info("e.g. java -jar -Ddelay-in-ms=10 -jar mockend-runner.jar");
+        LOG.info("e.g. java -Dquarkus.http.port=8888 -Ddelay-in-ms=10 -jar mockend-runner.jar");
         LOG.info("----------------------------");
 
     }
