@@ -124,13 +124,13 @@ Content-Length: 1
 
 `POST`, `PUT`, `GET`, `DELETE`, `OPTIONS` requests are supported.
 
-## Server Sent Events (SSE)
+## [Server Sent Events](https://www.w3.org/TR/2021/SPSD-eventsource-20210128/) (SSE)
 
 All CRUD methods are intercepted and streamed as SSE events:
 
 request:
 
-`curl -N http://localhost:8080/sse``
+`curl -N http://localhost:8080/sse`
 
 response:
 
