@@ -27,6 +27,7 @@ All requests can be delayed for the time defined in the header: `delay-in-ms`
 ## Create Read Update Delete (CRUD)
 
 ### creation with generated id
+
 request: `curl -XPOST "http://localhost:8080/crud" -H  "Content-Type: application/json" -d "{\"message\":\"hello, mockend\"}"`
 
 response: 
@@ -109,7 +110,7 @@ request with a response delayed for 1000 ms:
 
 The `/statuses` API returns responses with status codes passed as `status` header and a `+` in the body, e.g.
 
-response:
+request:
 
 `curl -H"status: 500" http://localhost:8080/statuses`
 response:
@@ -122,6 +123,23 @@ Content-Length: 1
 ```
 
 `POST`, `PUT`, `GET`, `DELETE`, `OPTIONS` requests are supported.
+
+## Server Sent Events (SSE)
+
+All CRUD methods are intercepted and streamed as SSE events:
+
+request:
+
+`curl -N http://localhost:8080/sse``
+
+response:
+
+```
+: crud-events
+event: crud-event
+id: 1620452701200
+data: {"httpMethod":"POST","path":"/","payload":{"hello":"world","id":"1620452701199"}}
+```
 
 # build
 
