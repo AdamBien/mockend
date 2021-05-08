@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 public class StatusesResourcesIT {
 
-    
     URI uri;
     HttpClient client;
 
