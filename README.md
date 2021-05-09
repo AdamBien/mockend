@@ -1,6 +1,6 @@
 # mockend
 
-the "mock backend" for frontend Single Page Applications. 
+the "mock backend" for Single Page Applications (SPAs) / Progressive Web Applications (PWAs). 
 
 mockend was used to implement the ["unidirectional dataflow"](https://adambien.blog/roller/abien/entry/unidirectional_data_flow_example_with) and asynchronous data fetching in the https://github.com/adambien/bce.design template.
 
