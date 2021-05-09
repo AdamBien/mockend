@@ -33,7 +33,7 @@ public class UserInfo {
     public void printMessages() {
         LOG.info("-----------usage------------");
         LOG.info("swagger-ui: http://localhost:"+this.port+"/q/swagger-ui/");
-        LOG.info("create: curl -XPOST \"http://localhost:"+this.port+"/crud\" -H \"Content-Type: application/json\" -d \"{\"message\":\"hello, mockend\"}\"");
+        LOG.info("create: curl -XPOST \"http://localhost:"+this.port+"/crud\" -H \"Content-Type: application/json\" -d \'{\"message\":\"hello, mockend\"}\'");
         LOG.info("fetch with delay: curl -H\'delay-in-ms:1000\' http://localhost:"+this.port+"/crud/1618928997430");
         LOG.info("echo: curl -X POST \"http://localhost:"+this.port+"/echo\" -H\"Content-Type: text/plain\" -d \"hello, mockend\"");
         LOG.info("status: curl -H\"status: 500\" http://localhost:"+this.port+"/statuses");
