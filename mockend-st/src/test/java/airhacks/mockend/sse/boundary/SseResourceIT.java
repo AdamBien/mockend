@@ -30,17 +30,15 @@ public class SseResourceIT {
 
     @Test
     public void receiveEvent() throws IOException, InterruptedException {
-        var request = HttpRequest.newBuilder(uri).GET().header("Accept", "text/event-stream").build();
+        var request = HttpRequest.newBuilder(uri).GET().build();
         var expectedPayload = "expected-" + System.nanoTime();
 
-        var stream = client.send(request, BodyHandlers.ofInputStream()).body();
+        var lines = client.send(request, BodyHandlers.ofLines()).body();
         postMessage(expectedPayload);
-        try (var streamReader = new InputStreamReader(stream); var bufferedReader = new BufferedReader(streamReader)) {
-            var data = bufferedReader.lines().filter(line -> line.startsWith("data")).findFirst();
-            assertTrue(data.isPresent());
-            assertTrue(data.get().contains(expectedPayload));
-            
-        }
+        var data =lines.filter(line -> line.startsWith("data")).findFirst();
+        assertTrue(data.isPresent());
+        assertTrue(data.get().contains(expectedPayload));            
+        
     }
 
     
