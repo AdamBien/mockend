@@ -17,6 +17,7 @@ import javax.json.stream.JsonCollectors;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -83,7 +84,13 @@ public class CRUDResource {
         sendEvent("POST", "/", payload);
 
         return previous == null ? Response.created(URI.create("/crud/"+id)).build() : Response.noContent().build();
+    }
 
+    @PATCH
+    @Path("{id}")
+    public Response patch(@PathParam("id") String id, JsonObject input) {
+        System.out.println("Not implemented yet " + input);
+        return Response.noContent().build();
     }
     
     @POST

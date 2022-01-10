@@ -120,4 +120,21 @@ public class CRUDResourceIT {
 
     }
 
+    @Test
+    public void patch() throws IOException, InterruptedException {
+        var input = """
+                {
+                  "message":"hello frontend"
+                }
+                """;
+        var id = String.valueOf(System.nanoTime());
+
+        var request = HttpRequest.newBuilder(uri.resolve(id)).method("PATCH",BodyPublishers.ofString(input))
+                .header("Content-type", "application/json").build();
+        var response = client.send(request, BodyHandlers.ofString());
+        var status = response.statusCode();
+        assertEquals(204, status);   
+    }
+
+
 }
