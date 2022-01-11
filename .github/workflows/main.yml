@@ -22,4 +22,4 @@ jobs:
       - name: Build mockend-st
         run: cd mockend-st && mvn clean package
       - name: System Tests
-        run: cd mockend-st && mvn test-compile failsafe:integration-tests
+        run: cd mockend-st && mvn test-compile failsafe:integration-test failsafe:verify
