@@ -12,8 +12,14 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build mockend
-        run: cd mockend && mvn clean package
+        run: cd mockend && mvn clean package -DskipTests
+      - name: Unit Tests
+        run: cd mockend && mvn package
+      - name: Start mockend
+        run: cd mockend && java -jar target/mockend-runner.jar &
       - name: Build mockend-st
         run: cd mockend-st && mvn clean package
-      - name: Start mockend
-        run: cd mockend && java -jar target/mockend-runner.jar
+      - name: Build mockend-st
+        run: cd mockend-st && mvn clean package
+      - name: System Tests
+        run: cd mockend-st && mvn test-compile failsafe:integration-tests
