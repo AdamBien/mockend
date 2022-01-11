@@ -1,4 +1,4 @@
-name: mockend CI
+name: system tests
 on: [push]
 jobs:
   build:
