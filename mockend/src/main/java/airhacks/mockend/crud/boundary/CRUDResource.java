@@ -2,9 +2,7 @@ package airhacks.mockend.crud.boundary;
 
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -12,7 +10,6 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonValue;
 import javax.json.stream.JsonCollectors;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
