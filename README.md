@@ -1,3 +1,5 @@
+[![system tests](https://github.com/AdamBien/mockend/actions/workflows/main.yml/badge.svg)](https://github.com/AdamBien/mockend/actions/workflows/main.yml)
+
 # mockend
 
 the "mock backend" for Single Page Applications (SPAs) / Progressive Web Applications (PWAs). 
